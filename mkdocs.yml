@@ -1,6 +1,6 @@
 site_name: "test-demo"
 site_description: "demo"
-docs_dir: './documentacion'
+docs_dir: 'documentacion'
 
 nav:
   - Overview: overview/readme.md
