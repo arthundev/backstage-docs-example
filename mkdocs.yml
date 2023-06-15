@@ -2,7 +2,7 @@ site_name: "test-demo"
 site_description: "demo"
 
 nav:
-  - Introduction: index.md
+  - Overview: index.md
 
 plugins:
   - techdocs-core
