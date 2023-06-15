@@ -13,6 +13,7 @@ metadata:
     dev.azure.com/project: GCIT-Agile
     dev.azure.com/build-definition: app-middleware-api-profile
     dev.azure.com/project-repo: GCIT-Agile/app-middleware-api-profile
+    backstage.io/view-url: https://github.com/arthundev/backstage-docs-example/blob/main/catalog-info.yaml
     backstage.io/techdocs-ref: url:https://github.com/arthundev/backstage-docs-example/main
 spec:
   type: service
