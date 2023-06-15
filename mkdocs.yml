@@ -1,7 +1,7 @@
 site_name: "Profile API"
 site_description: "Servicios para la administración de la información del cliente"
 repo_url: https://dev.azure.com/grupo-exito/GCIT-Agile/_git/app-middleware-api-profile
-docs_dir: "documentacion"
+docs_dir: "./documentacion"
 
 plugins:
   - techdocs-core
