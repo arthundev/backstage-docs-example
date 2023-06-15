@@ -1,8 +1,8 @@
-site_name: Profile API
-site_description: Servicios para la administración de la información del cliente
+site_name: "test-demo"
+site_description: "demo"
+
+nav:
+  - Introduction: index.md
 
 plugins:
   - techdocs-core
-
-nav:
-  - Overview: index.md
