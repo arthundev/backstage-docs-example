@@ -1,9 +1,8 @@
-site_name: "Profile API"
-site_description: "Servicios para la administración de la información del cliente"
-repo_url: https://dev.azure.com/grupo-exito/GCIT-Agile/_git/app-middleware-api-profile
+site_name: Profile API
+site_description: Servicios para la administración de la información del cliente
 
 plugins:
   - techdocs-core
 
 nav:
-  - Overview: "index.md"
+  - Overview: index.md
