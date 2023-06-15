@@ -1,8 +1,9 @@
 site_name: "test-demo"
 site_description: "demo"
+docs_dir: './documentacion'
 
 nav:
-  - Overview: index.md
+  - Overview: overview/readme.md
 
 plugins:
   - techdocs-core
