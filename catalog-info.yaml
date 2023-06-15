@@ -1,0 +1,2148 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: app-middleware-api-profile
+  description: Servicios para la administración de la información del cliente.
+  tags:
+    - net6
+    - api
+    - middleware
+    - profile
+  annotations:
+    sonarqube.org/project-key: app-middleware-api-profile
+    dev.azure.com/project: GCIT-Agile
+    dev.azure.com/build-definition: app-middleware-api-profile
+    dev.azure.com/project-repo: GCIT-Agile/app-middleware-api-profile
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: service
+  lifecycle: production
+  owner: soluciones de clientes
+  system: AKS
+  dependsOn:
+    - resource:redis
+  providesApis:
+    - middleware-profile
+  consumesApis:
+    - ELK
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: middleware-profile
+  description: Servicios para la administración de la información del cliente.
+spec:
+  type: openapi
+  lifecycle: production
+  owner: soluciones de clientes
+  system: AKS
+  definition: |
+    {
+      "openapi": "3.0.1",
+      "info": {
+        "title": "Profile API",
+        "description": "EndPoints Stickers",
+        "contact": {
+          "name": "Pragma S.A."
+        },
+        "version": "v1"
+      },
+      "paths": {
+        "/api/v1/createorderformid": {
+          "post": {
+            "tags": [
+              "Profile"
+            ],
+            "parameters": [
+              {
+                "name": "orderFormId",
+                "in": "query",
+                "schema": {
+                  "type": "string",
+                  "nullable": true
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Success"
+              }
+            }
+          }
+        },
+        "/api/v1/associateorderformid": {
+          "post": {
+            "tags": [
+              "Profile"
+            ],
+            "requestBody": {
+              "content": {
+                "application/json-patch+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestAssociateOrderFormId"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestAssociateOrderFormId"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestAssociateOrderFormId"
+                  }
+                },
+                "application/*+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestAssociateOrderFormId"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/getprofile": {
+          "get": {
+            "tags": [
+              "Profile"
+            ],
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/updateuserdata": {
+          "put": {
+            "tags": [
+              "Profile"
+            ],
+            "requestBody": {
+              "content": {
+                "application/json-patch+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateUserDataRequest"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateUserDataRequest"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateUserDataRequest"
+                  }
+                },
+                "application/*+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateUserDataRequest"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/getaddresses": {
+          "get": {
+            "tags": [
+              "Profile"
+            ],
+            "parameters": [
+              {
+                "name": "orderFormId",
+                "in": "query",
+                "schema": {
+                  "type": "string",
+                  "nullable": true
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/setaddress": {
+          "post": {
+            "tags": [
+              "Profile"
+            ],
+            "requestBody": {
+              "content": {
+                "application/json-patch+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateAddressOperationRequest"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateAddressOperationRequest"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateAddressOperationRequest"
+                  }
+                },
+                "application/*+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateAddressOperationRequest"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/setguestaddress": {
+          "post": {
+            "tags": [
+              "Profile"
+            ],
+            "requestBody": {
+              "content": {
+                "application/json-patch+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SetAddressAnonimousRequest"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SetAddressAnonimousRequest"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SetAddressAnonimousRequest"
+                  }
+                },
+                "application/*+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SetAddressAnonimousRequest"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Success"
+              }
+            }
+          }
+        },
+        "/api/v1/updateaddress": {
+          "put": {
+            "tags": [
+              "Profile"
+            ],
+            "requestBody": {
+              "content": {
+                "application/json-patch+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AddressOperationRequest"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AddressOperationRequest"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AddressOperationRequest"
+                  }
+                },
+                "application/*+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AddressOperationRequest"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/deleteaddress": {
+          "delete": {
+            "tags": [
+              "Profile"
+            ],
+            "parameters": [
+              {
+                "name": "addressName",
+                "in": "query",
+                "schema": {
+                  "type": "string",
+                  "nullable": true
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/chooseaddress": {
+          "post": {
+            "tags": [
+              "Profile"
+            ],
+            "requestBody": {
+              "content": {
+                "application/json-patch+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ChooseAddressRequest"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ChooseAddressRequest"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ChooseAddressRequest"
+                  }
+                },
+                "application/*+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ChooseAddressRequest"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/choosebuyandpickup": {
+          "post": {
+            "tags": [
+              "Profile"
+            ],
+            "requestBody": {
+              "content": {
+                "application/json-patch+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ChooseBuyAndPickUpRequest"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ChooseBuyAndPickUpRequest"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ChooseBuyAndPickUpRequest"
+                  }
+                },
+                "application/*+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ChooseBuyAndPickUpRequest"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Success"
+              }
+            }
+          }
+        },
+        "/api/v1/getpayments": {
+          "get": {
+            "tags": [
+              "Profile"
+            ],
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/validateaddresscoverage/{city}/{street}/{partner}": {
+          "get": {
+            "tags": [
+              "Profile"
+            ],
+            "parameters": [
+              {
+                "name": "city",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "nullable": true
+                }
+              },
+              {
+                "name": "street",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "nullable": true
+                }
+              },
+              {
+                "name": "partner",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "nullable": true
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Success"
+              }
+            }
+          }
+        },
+        "/api/v1/getcarullasegment": {
+          "post": {
+            "tags": [
+              "Profile"
+            ],
+            "requestBody": {
+              "content": {
+                "application/json-patch+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CommonClifreRequest"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CommonClifreRequest"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CommonClifreRequest"
+                  }
+                },
+                "application/*+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CommonClifreRequest"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/getorders": {
+          "get": {
+            "tags": [
+              "Profile"
+            ],
+            "parameters": [
+              {
+                "name": "page",
+                "in": "query",
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              {
+                "name": "version",
+                "in": "query",
+                "schema": {
+                  "type": "integer",
+                  "format": "int32",
+                  "default": 0
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/ListOrders": {
+          "get": {
+            "tags": [
+              "Profile"
+            ],
+            "parameters": [
+              {
+                "name": "page",
+                "in": "query",
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              {
+                "name": "version",
+                "in": "query",
+                "schema": {
+                  "type": "integer",
+                  "format": "int32",
+                  "default": 0
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/usualorder": {
+          "post": {
+            "tags": [
+              "Profile"
+            ],
+            "requestBody": {
+              "content": {
+                "application/json-patch+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestUsualOrder"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestUsualOrder"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestUsualOrder"
+                  }
+                },
+                "application/*+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestUsualOrder"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/availablelocations/{deliverymode}/{idCity}": {
+          "get": {
+            "tags": [
+              "Profile"
+            ],
+            "parameters": [
+              {
+                "name": "deliveryMode",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "nullable": true
+                }
+              },
+              {
+                "name": "idCity",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "nullable": true
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Success"
+              }
+            }
+          }
+        },
+        "/api/v1/orderdetail/{orderId}": {
+          "get": {
+            "tags": [
+              "Profile"
+            ],
+            "parameters": [
+              {
+                "name": "orderId",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "nullable": true
+                }
+              },
+              {
+                "name": "version",
+                "in": "query",
+                "schema": {
+                  "type": "integer",
+                  "format": "int32",
+                  "default": 0
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Success"
+              }
+            }
+          }
+        },
+        "/api/v1/AssociateChannelId/{orderFormId}": {
+          "put": {
+            "tags": [
+              "Profile"
+            ],
+            "parameters": [
+              {
+                "name": "orderFormId",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "nullable": true
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Success"
+              }
+            }
+          }
+        },
+        "/api/v1/changecommertialpolicy": {
+          "post": {
+            "tags": [
+              "Profile"
+            ],
+            "parameters": [
+              {
+                "name": "sessionToken",
+                "in": "query",
+                "schema": {
+                  "type": "string",
+                  "nullable": true
+                }
+              },
+              {
+                "name": "orderFormId",
+                "in": "query",
+                "schema": {
+                  "type": "string",
+                  "nullable": true
+                }
+              },
+              {
+                "name": "isInternational",
+                "in": "query",
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Success"
+              }
+            }
+          }
+        },
+        "/api/v1/getotppuntoscolombia": {
+          "post": {
+            "tags": [
+              "Profile"
+            ],
+            "requestBody": {
+              "content": {
+                "application/json-patch+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestGetOtpPuntosColombia"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestGetOtpPuntosColombia"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestGetOtpPuntosColombia"
+                  }
+                },
+                "application/*+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestGetOtpPuntosColombia"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/validateotppuntoscolombia": {
+          "post": {
+            "tags": [
+              "Profile"
+            ],
+            "requestBody": {
+              "content": {
+                "application/json-patch+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestValidateOtpPuntosColombia"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestValidateOtpPuntosColombia"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestValidateOtpPuntosColombia"
+                  }
+                },
+                "application/*+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestValidateOtpPuntosColombia"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/getbalanceprofilepuntoscolombia": {
+          "post": {
+            "tags": [
+              "Profile"
+            ],
+            "requestBody": {
+              "content": {
+                "application/json-patch+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestGetBalanceProfilePuntosColombia"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestGetBalanceProfilePuntosColombia"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestGetBalanceProfilePuntosColombia"
+                  }
+                },
+                "application/*+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestGetBalanceProfilePuntosColombia"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/getbalancepuntoscolombia": {
+          "post": {
+            "tags": [
+              "Profile"
+            ],
+            "requestBody": {
+              "content": {
+                "application/json-patch+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestGetBalancePuntosColombia"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestGetBalancePuntosColombia"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestGetBalancePuntosColombia"
+                  }
+                },
+                "application/*+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestGetBalancePuntosColombia"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/getopenorders": {
+          "get": {
+            "tags": [
+              "Profile"
+            ],
+            "parameters": [
+              {
+                "name": "email",
+                "in": "query",
+                "schema": {
+                  "type": "string",
+                  "nullable": true
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/getapiversion": {
+          "get": {
+            "tags": [
+              "Profile"
+            ],
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/saveacceptancepush": {
+          "post": {
+            "tags": [
+              "Profile"
+            ],
+            "requestBody": {
+              "content": {
+                "application/json-patch+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestAcceptancePushNotifications"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestAcceptancePushNotifications"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestAcceptancePushNotifications"
+                  }
+                },
+                "application/*+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestAcceptancePushNotifications"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/getacceptancepush": {
+          "post": {
+            "tags": [
+              "Profile"
+            ],
+            "requestBody": {
+              "content": {
+                "application/json-patch+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GenericRequestPushNotifications"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GenericRequestPushNotifications"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GenericRequestPushNotifications"
+                  }
+                },
+                "application/*+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GenericRequestPushNotifications"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/savedatelogin": {
+          "post": {
+            "tags": [
+              "Profile"
+            ],
+            "requestBody": {
+              "content": {
+                "application/json-patch+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestSaveDateLogin"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestSaveDateLogin"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestSaveDateLogin"
+                  }
+                },
+                "application/*+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestSaveDateLogin"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/GetLastGroceriesOrder": {
+          "get": {
+            "tags": [
+              "Profile"
+            ],
+            "parameters": [
+              {
+                "name": "version",
+                "in": "query",
+                "schema": {
+                  "type": "integer",
+                  "format": "int32",
+                  "default": 0
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/GetGroceriesOrderProductDetail": {
+          "get": {
+            "tags": [
+              "Profile"
+            ],
+            "parameters": [
+              {
+                "name": "orderId",
+                "in": "query",
+                "schema": {
+                  "type": "string",
+                  "nullable": true
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/gettopics/{devicetoken}": {
+          "get": {
+            "tags": [
+              "Profile"
+            ],
+            "parameters": [
+              {
+                "name": "devicetoken",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "nullable": true
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/deleteuseraccount": {
+          "delete": {
+            "tags": [
+              "Profile"
+            ],
+            "parameters": [
+              {
+                "name": "email",
+                "in": "query",
+                "schema": {
+                  "type": "string",
+                  "nullable": true
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/getcustomerinfo": {
+          "post": {
+            "tags": [
+              "Profile"
+            ],
+            "requestBody": {
+              "content": {
+                "application/json-patch+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GetCustomerInfoRequest"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GetCustomerInfoRequest"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GetCustomerInfoRequest"
+                  }
+                },
+                "application/*+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GetCustomerInfoRequest"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/api/v1/ordergroupdetail": {
+          "get": {
+            "tags": [
+              "Profile"
+            ],
+            "parameters": [
+              {
+                "name": "ordergroupid",
+                "in": "query",
+                "schema": {
+                  "type": "string",
+                  "nullable": true
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Success"
+              },
+              "401": {
+                "description": "Unauthorized"
+              },
+              "403": {
+                "description": "Forbidden"
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ]
+          }
+        },
+        "/version": {
+          "get": {
+            "tags": [
+              "Version"
+            ],
+            "responses": {
+              "200": {
+                "description": "Success"
+              }
+            }
+          }
+        }
+      },
+      "components": {
+        "schemas": {
+          "RequestAssociateOrderFormId": {
+            "required": [
+              "email",
+              "orderFormId"
+            ],
+            "type": "object",
+            "properties": {
+              "orderFormId": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "Profile": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "nullable": true
+              },
+              "homePhone": {
+                "type": "string",
+                "nullable": true
+              },
+              "cellPhone": {
+                "type": "string",
+                "nullable": true
+              },
+              "document": {
+                "type": "string",
+                "nullable": true
+              },
+              "documentType": {
+                "type": "string",
+                "nullable": true
+              },
+              "firstName": {
+                "type": "string",
+                "nullable": true
+              },
+              "lastName": {
+                "type": "string",
+                "nullable": true
+              },
+              "birthDate": {
+                "type": "string",
+                "nullable": true
+              },
+              "gender": {
+                "type": "string",
+                "nullable": true
+              },
+              "businessPhone": {
+                "type": "string",
+                "nullable": true
+              },
+              "corporateName": {
+                "type": "string",
+                "nullable": true
+              },
+              "stateRegistration": {
+                "type": "string",
+                "nullable": true
+              },
+              "isCorporate": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": false
+          },
+          "UpdateUserDataRequest": {
+            "required": [
+              "orderFormId"
+            ],
+            "type": "object",
+            "properties": {
+              "orderFormId": {
+                "type": "string"
+              },
+              "profile": {
+                "$ref": "#/components/schemas/Profile"
+              },
+              "ipSource": {
+                "type": "string",
+                "nullable": true
+              },
+              "version": {
+                "type": "string",
+                "nullable": true
+              },
+              "versionHabeasData": {
+                "type": "string",
+                "nullable": true
+              },
+              "updateGender": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": false
+          },
+          "SetAddressModel": {
+            "required": [
+              "city",
+              "state"
+            ],
+            "type": "object",
+            "properties": {
+              "geoCoordinates": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "format": "double"
+                },
+                "nullable": true
+              },
+              "receiverName": {
+                "type": "string",
+                "nullable": true
+              },
+              "complement": {
+                "type": "string",
+                "nullable": true
+              },
+              "neighborhood": {
+                "type": "string",
+                "nullable": true
+              },
+              "country": {
+                "type": "string",
+                "nullable": true
+              },
+              "state": {
+                "type": "string"
+              },
+              "number": {
+                "type": "string",
+                "nullable": true
+              },
+              "street": {
+                "type": "string",
+                "nullable": true
+              },
+              "postalCode": {
+                "type": "string",
+                "nullable": true
+              },
+              "city": {
+                "type": "string"
+              },
+              "addressType": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "additionalProperties": false
+          },
+          "CreateAddressOperationRequest": {
+            "required": [
+              "orderFormId"
+            ],
+            "type": "object",
+            "properties": {
+              "orderFormId": {
+                "type": "string"
+              },
+              "address": {
+                "$ref": "#/components/schemas/SetAddressModel"
+              }
+            },
+            "additionalProperties": false
+          },
+          "AddressSelection": {
+            "required": [
+              "city",
+              "state"
+            ],
+            "type": "object",
+            "properties": {
+              "addressId": {
+                "type": "string",
+                "nullable": true
+              },
+              "geoCoordinates": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "format": "double"
+                },
+                "nullable": true
+              },
+              "receiverName": {
+                "type": "string",
+                "nullable": true
+              },
+              "complement": {
+                "type": "string",
+                "nullable": true
+              },
+              "neighborhood": {
+                "type": "string",
+                "nullable": true
+              },
+              "country": {
+                "type": "string",
+                "nullable": true
+              },
+              "state": {
+                "type": "string"
+              },
+              "number": {
+                "type": "string",
+                "nullable": true
+              },
+              "street": {
+                "type": "string",
+                "nullable": true
+              },
+              "postalCode": {
+                "type": "string",
+                "nullable": true
+              },
+              "city": {
+                "type": "string"
+              },
+              "addressType": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "additionalProperties": false
+          },
+          "SetAddressAnonimousRequest": {
+            "required": [
+              "orderFormId"
+            ],
+            "type": "object",
+            "properties": {
+              "orderFormId": {
+                "type": "string"
+              },
+              "address": {
+                "$ref": "#/components/schemas/AddressSelection"
+              }
+            },
+            "additionalProperties": false
+          },
+          "UpdateAddressModel": {
+            "required": [
+              "city",
+              "state"
+            ],
+            "type": "object",
+            "properties": {
+              "addressName": {
+                "type": "string",
+                "nullable": true
+              },
+              "geoCoordinates": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "format": "double"
+                },
+                "nullable": true
+              },
+              "receiverName": {
+                "type": "string",
+                "nullable": true
+              },
+              "complement": {
+                "type": "string",
+                "nullable": true
+              },
+              "neighborhood": {
+                "type": "string",
+                "nullable": true
+              },
+              "country": {
+                "type": "string",
+                "nullable": true
+              },
+              "state": {
+                "type": "string"
+              },
+              "number": {
+                "type": "string",
+                "nullable": true
+              },
+              "street": {
+                "type": "string",
+                "nullable": true
+              },
+              "postalCode": {
+                "type": "string",
+                "nullable": true
+              },
+              "city": {
+                "type": "string"
+              },
+              "addressType": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "additionalProperties": false
+          },
+          "AddressOperationRequest": {
+            "required": [
+              "orderFormId"
+            ],
+            "type": "object",
+            "properties": {
+              "orderFormId": {
+                "type": "string"
+              },
+              "address": {
+                "$ref": "#/components/schemas/UpdateAddressModel"
+              }
+            },
+            "additionalProperties": false
+          },
+          "ChooseAddressRequest": {
+            "required": [
+              "addressId",
+              "orderFormId"
+            ],
+            "type": "object",
+            "properties": {
+              "orderFormId": {
+                "type": "string"
+              },
+              "addressId": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "DependencyAddress": {
+            "required": [
+              "city",
+              "state"
+            ],
+            "type": "object",
+            "properties": {
+              "geoCoordinates": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "format": "double"
+                },
+                "nullable": true
+              },
+              "complement": {
+                "type": "string",
+                "nullable": true
+              },
+              "neighborhood": {
+                "type": "string",
+                "nullable": true
+              },
+              "country": {
+                "type": "string",
+                "nullable": true
+              },
+              "state": {
+                "type": "string"
+              },
+              "number": {
+                "type": "string",
+                "nullable": true
+              },
+              "street": {
+                "type": "string",
+                "nullable": true
+              },
+              "postalCode": {
+                "type": "string",
+                "nullable": true
+              },
+              "city": {
+                "type": "string"
+              },
+              "addressType": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "additionalProperties": false
+          },
+          "ChooseBuyAndPickUpRequest": {
+            "required": [
+              "address",
+              "orderFormId"
+            ],
+            "type": "object",
+            "properties": {
+              "orderFormId": {
+                "type": "string"
+              },
+              "address": {
+                "$ref": "#/components/schemas/DependencyAddress"
+              },
+              "dependencyCode": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              }
+            },
+            "additionalProperties": false
+          },
+          "CommonClifreRequest": {
+            "required": [
+              "documentNumber",
+              "documentType"
+            ],
+            "type": "object",
+            "properties": {
+              "documentNumber": {
+                "maximum": 2147483647,
+                "minimum": 1,
+                "pattern": "([0-9]+)",
+                "type": "integer",
+                "format": "int64"
+              },
+              "documentType": {
+                "maximum": 3,
+                "minimum": 2,
+                "pattern": "([0-9]+)",
+                "type": "integer",
+                "format": "int32"
+              },
+              "origin": {
+                "type": "string",
+                "nullable": true
+              },
+              "traceId": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "Partner": {
+                "type": "string",
+                "nullable": true
+              },
+              "queryType": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "additionalProperties": false
+          },
+          "RequestUsualOrder": {
+            "type": "object",
+            "properties": {
+              "documentNumber": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "documentType": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "maxProducts": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "partner": {
+                "type": "string",
+                "nullable": true
+              },
+              "traceId": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "additionalProperties": false
+          },
+          "RequestGetOtpPuntosColombia": {
+            "required": [
+              "documentNumber",
+              "documentType",
+              "IPClient",
+              "method"
+            ],
+            "type": "object",
+            "properties": {
+              "documentNumber": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "documentType": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "method": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string",
+                "nullable": true
+              },
+              "IPClient": {
+                "type": "string"
+              },
+              "fourDigits": {
+                "type": "boolean"
+              },
+              "traceId": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "additionalProperties": false
+          },
+          "RequestValidateOtpPuntosColombia": {
+            "required": [
+              "documentNumber",
+              "documentType",
+              "IPClient",
+              "otp"
+            ],
+            "type": "object",
+            "properties": {
+              "documentNumber": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "documentType": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "otp": {
+                "type": "string"
+              },
+              "IPClient": {
+                "type": "string"
+              },
+              "traceId": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "additionalProperties": false
+          },
+          "RequestGetBalanceProfilePuntosColombia": {
+            "required": [
+              "IPClient"
+            ],
+            "type": "object",
+            "properties": {
+              "IPClient": {
+                "type": "string"
+              },
+              "traceId": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "additionalProperties": false
+          },
+          "RequestGetBalancePuntosColombia": {
+            "required": [
+              "documentNumber",
+              "documentType",
+              "IPClient"
+            ],
+            "type": "object",
+            "properties": {
+              "documentNumber": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "documentType": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "IPClient": {
+                "type": "string"
+              },
+              "traceId": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "additionalProperties": false
+          },
+          "RequestAcceptancePushNotifications": {
+            "required": [
+              "acceptPushNotifications",
+              "documentNumber",
+              "documentType",
+              "idDevice",
+              "platform"
+            ],
+            "type": "object",
+            "properties": {
+              "idDevice": {
+                "type": "string"
+              },
+              "platform": {
+                "type": "string"
+              },
+              "acceptPushNotifications": {
+                "type": "boolean"
+              },
+              "documentNumber": {
+                "maximum": 2147483647,
+                "minimum": 1,
+                "type": "integer",
+                "format": "int32"
+              },
+              "documentType": {
+                "maximum": 3,
+                "minimum": 2,
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "additionalProperties": false
+          },
+          "GenericRequestPushNotifications": {
+            "required": [
+              "documentNumber",
+              "documentType"
+            ],
+            "type": "object",
+            "properties": {
+              "documentNumber": {
+                "maximum": 2147483647,
+                "minimum": 1,
+                "type": "integer",
+                "format": "int32"
+              },
+              "documentType": {
+                "maximum": 3,
+                "minimum": 2,
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "additionalProperties": false
+          },
+          "RequestSaveDateLogin": {
+            "required": [
+              "email"
+            ],
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string"
+              },
+              "lastLoginDate": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "additionalProperties": false
+          },
+          "GetCustomerInfoRequest": {
+            "required": [
+              "dependencyId",
+              "documentNumber",
+              "documentType"
+            ],
+            "type": "object",
+            "properties": {
+              "dependencyId": {
+                "pattern": "([0-9]+)",
+                "type": "string"
+              },
+              "documentNumber": {
+                "maximum": 2147483647,
+                "minimum": 1,
+                "pattern": "([0-9]+)",
+                "type": "integer",
+                "format": "int32"
+              },
+              "documentType": {
+                "maximum": 3,
+                "minimum": 2,
+                "pattern": "([0-9]+)",
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "securitySchemes": {
+          "Bearer": {
+            "type": "apiKey",
+            "description": "JWT Authorization header using the Bearer scheme. Example: \"Bearer {token}\"",
+            "name": "Authorization",
+            "in": "header"
+          }
+        }
+      }
+    }
