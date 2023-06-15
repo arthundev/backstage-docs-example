@@ -13,7 +13,7 @@ metadata:
     dev.azure.com/project: GCIT-Agile
     dev.azure.com/build-definition: app-middleware-api-profile
     dev.azure.com/project-repo: GCIT-Agile/app-middleware-api-profile
-    backstage.io/techdocs-ref: dir:.
+    backstage.io/techdocs-ref: dir:./docs
 spec:
   type: service
   lifecycle: production
